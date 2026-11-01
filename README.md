@@ -11,6 +11,7 @@
 
 - [x] **Day 1**: Project setup, directory scaffolding, and environment config
 - [x] **Day 2**: Project goal, core data models, and schema definitions
+- [x] **Day 3**: Task CRUD operations (Create, Read, Update, Delete) and memory store
 <!-- gitstreak-roadmap-end -->
 
 ---
