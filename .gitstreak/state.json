@@ -1,8 +1,8 @@
 {
   "projectName": "to-do-list",
   "totalDays": 30,
-  "currentDay": 3,
-  "lastRunDate": "2026-10-31",
+  "currentDay": 4,
+  "lastRunDate": "2026-11-01",
   "history": [
     {
       "day": 1,
@@ -13,6 +13,12 @@
       "day": 2,
       "milestone": "Project goal & schema definitions",
       "date": "2026-10-31"
+    },
+    {
+      "day": 3,
+      "milestone": "Task CRUD operations (Create, Read, Update, Delete) and memory store",
+      "date": "2026-11-01",
+      "commitsCount": 2
     }
   ]
 }
