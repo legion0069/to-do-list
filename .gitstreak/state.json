@@ -1,0 +1,18 @@
+{
+  "projectName": "to-do-list",
+  "totalDays": 30,
+  "currentDay": 3,
+  "lastRunDate": "2026-10-31",
+  "history": [
+    {
+      "day": 1,
+      "milestone": "Project setup & directory scaffolding",
+      "date": "2026-10-31"
+    },
+    {
+      "day": 2,
+      "milestone": "Project goal & schema definitions",
+      "date": "2026-10-31"
+    }
+  ]
+}
