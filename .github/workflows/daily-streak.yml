@@ -47,3 +47,34 @@ jobs:
           INPUT_FORCE: ${{ github.event.inputs.force || 'false' }}
         run: |
           node scripts/streak-runner.js
+
+      - name: Sync Progress to Automation Repository & Update UI
+        env:
+          PAT_TOKEN: ${{ secrets.PAT_TOKEN || secrets.GH_PAT }}
+        run: |
+          if [ -z "$PAT_TOKEN" ]; then
+            echo "ℹ️ PAT_TOKEN secret is not set in to-do-list repository."
+            echo "ℹ️ The UI at https://legion0069.github.io/Automation/ already displays live updates directly from to-do-list."
+            echo "ℹ️ To also push an automated commit to Automation repo, add PAT_TOKEN to to-do-list Settings > Secrets > Actions."
+            exit 0
+          fi
+
+          echo "🚀 Syncing daily progress to Automation repository..."
+          git config --global user.name "gitstreak-bot"
+          git config --global user.email "gitstreak-bot@users.noreply.github.com"
+
+          # Clone Automation repo using the PAT
+          rm -rf /tmp/automation-repo
+          git clone "https://x-access-token:${PAT_TOKEN}@github.com/legion0069/Automation.git" /tmp/automation-repo
+
+          # Sync .gitstreak state
+          mkdir -p /tmp/automation-repo/.gitstreak /tmp/automation-repo/data
+          cp .gitstreak/state.json /tmp/automation-repo/.gitstreak/state.json
+
+          # Commit and push to Automation
+          cd /tmp/automation-repo
+          git add .
+          CURRENT_DAY=$(node -e "try { console.log(require('./.gitstreak/state.json').currentDay) } catch { console.log('') }")
+          git commit -m "chore(sync): sync Day ${CURRENT_DAY} progress from to-do-list" || echo "No changes to commit in Automation"
+          git push origin main || echo "Push to Automation skipped"
+          echo "🎉 Automation repository and UI successfully updated!"
