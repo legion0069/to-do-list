@@ -36,4 +36,22 @@ class ProjectGoalManager {
   }
 }
 
+class ProjectGoal {
+  constructor(config = {}) {
+    this.config = config;
+    this.status = 'active';
+  }
+
+  async execute(input = {}) {
+    return {
+      success: true,
+      day: 2,
+      milestone: 'Project goal & schema definitions',
+      data: input
+    };
+  }
+}
+
 module.exports = ProjectGoalManager;
+module.exports.ProjectGoal = ProjectGoal;
+module.exports.ProjectGoalManager = ProjectGoalManager;
