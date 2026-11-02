@@ -13,7 +13,7 @@ on:
       commits_count:
         description: 'Number of commits to push today (1-5)'
         required: false
-        default: '2'
+        default: '4'
       force:
         description: 'Force execution even if already completed today'
         required: false
@@ -42,7 +42,7 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          COMMITS_PER_DAY: ${{ github.event.inputs.commits_count || '2' }}
+          COMMITS_PER_DAY: ${{ github.event.inputs.commits_count || '4' }}
           INPUT_MILESTONE: ${{ github.event.inputs.milestone }}
           INPUT_FORCE: ${{ github.event.inputs.force || 'false' }}
         run: |

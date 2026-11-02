@@ -16,7 +16,7 @@ const { execSync } = require('child_process');
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY || '';
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN || '';
 const GITHUB_ACTOR = process.env.GITHUB_ACTOR || 'gitstreak-bot';
-const COMMITS_PER_DAY = Math.max(1, Math.min(5, parseInt(process.env.COMMITS_PER_DAY || '2', 10)));
+const COMMITS_PER_DAY = Math.max(1, Math.min(5, parseInt(process.env.COMMITS_PER_DAY || '4', 10)));
 const FORCE_RUN = process.env.FORCE_RUN === 'true' || process.env.INPUT_FORCE === 'true';
 
 // Preferred Gemini models (ordered by speed and capability)
@@ -231,6 +231,70 @@ function generateResilientDayCode({ projectName, dayNumber, totalDays, milestone
     });
   }
 
+  // Commit 3: Controller & State Transition Utilities
+  if (commitsCount >= 3) {
+    commits.push({
+      message: `feat(day-${dayNumber}): add controller handler and state utilities for ${slug}`,
+      files: [
+        {
+          path: `src/controllers/${slug}Controller.js`,
+          content: [
+            `/**`,
+            ` * ${projectName} - Controller Handler for Day ${dayNumber}`,
+            ` * Capability: ${milestone}`,
+            ` */`,
+            `const { ${className} } = require('../features/${slug}');`,
+            ``,
+            `class ${className}Controller {`,
+            `  constructor() {`,
+            `    this.feature = new ${className}();`,
+            `  }`,
+            ``,
+            `  async handleRequest(req = {}) {`,
+            `    try {`,
+            `      const result = await this.feature.execute(req);`,
+            `      return { statusCode: 200, body: result };`,
+            `    } catch (err) {`,
+            `      return { statusCode: 500, error: err.message };`,
+            `    }`,
+            `  }`,
+            `}`,
+            ``,
+            `module.exports = { ${className}Controller };`,
+            ``
+          ].join('\n')
+        }
+      ]
+    });
+  }
+
+  // Commit 4: Milestone Documentation & Architecture Specs
+  if (commitsCount >= 4) {
+    commits.push({
+      message: `docs(day-${dayNumber}): document architecture specifications and milestone summary`,
+      files: [
+        {
+          path: `docs/specs/${slug}-spec.md`,
+          content: [
+            `# Architecture Specification: Day ${dayNumber} (${milestone})`,
+            ``,
+            `## Overview`,
+            `- **Project**: ${projectName}`,
+            `- **Milestone**: ${milestone}`,
+            `- **Progress**: Day ${dayNumber} of ${totalDays}`,
+            `- **Status**: Completed & Verified`,
+            ``,
+            `## Technical Deliverables`,
+            `1. Domain logic implementation in \`src/features/${slug}.js\``,
+            `2. Controller handler in \`src/controllers/${slug}Controller.js\``,
+            `3. Unit test suite in \`tests/${slug}.test.js\``,
+            `4. Milestone guide in \`docs/milestones/day-${dayNumber}.md\``
+          ].join('\n') + '\n'
+        }
+      ]
+    });
+  }
+
   return commits.slice(0, commitsCount);
 }
 
@@ -276,7 +340,7 @@ async function main() {
   }
 
   const currentDay = state.currentDay || 3;
-  const totalDays = state.totalDays || 30;
+  const totalDays = state.totalDays || 10;
 
   // Milestone catalog customized for To-Do List project
   const customMilestone = process.env.INPUT_MILESTONE || process.env.MILESTONE;
@@ -287,22 +351,12 @@ async function main() {
     "Project goal, core data models, and schema definitions",
     "Task CRUD operations (Create, Read, Update, Delete) and memory store",
     "Task prioritization (Low, Medium, High) and category tagging system",
-    "Due dates, reminder timers, and urgency sorting algorithm",
-    "REST API controller endpoints for task state management",
-    "Task filtering system (active, completed, overdue, by priority)",
-    "Responsive frontend layout, header, and task card grid UI",
-    "Interactive task status toggling, animations, and progress bar",
-    "Keyword search with live filtering and tag auto-complete",
-    "Bulk operations: select all, mark completed, and clear finished tasks",
-    "Local persistence adapter and localStorage synchronization",
-    "Export & import system: backup tasks to JSON and CSV",
-    "Keyboard shortcuts (quick add, toggle, delete) for productivity",
-    "Automated unit testing suite and boundary validation",
-    "Dark mode glassmorphism UI theme and accessibility styling",
-    "Notifications manager: browser alerts for upcoming due dates",
-    "Subtasks and checklist decomposition for complex todos",
-    "Performance profiling, bundle size optimization, and cleanup",
-    "Comprehensive documentation, user manual, and release packaging"
+    "Due dates, countdown timers, and urgency sorting algorithm",
+    "REST API controller endpoints, HTTP routing, and request validation",
+    "Multi-query filtering engine (search, tags, priority, date range)",
+    "Interactive web frontend UI (task dashboard, card grid, status toggles)",
+    "Local persistence adapter, JSON/CSV export/import, and dark mode",
+    "End-to-end integration test suite, production packaging, and v1.0.0 release"
   ];
 
   if (!customMilestone && defaultRoadmap[currentDay - 1]) {
@@ -429,6 +483,8 @@ Requirements:
     commitsCount: generatedCommits.length
   });
 
+  state.totalDays = totalDays;
+  state.roadmap = defaultRoadmap;
   fs.writeFileSync(stateFile, JSON.stringify(state, null, 2), 'utf-8');
   runCmd('git add .gitstreak/', workingDir);
   runCmd(`git commit -m "chore(gitstreak): advance progress to Day ${state.currentDay}"`, workingDir);

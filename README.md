@@ -4,15 +4,22 @@
 
 [![GitStreak Automation](https://github.com/legion0069/to-do-list/actions/workflows/daily-streak.yml/badge.svg)](https://github.com/legion0069/to-do-list/actions/workflows/daily-streak.yml)
 [![Contributions Welcome](https://img.shields.io/badge/streak-automated-brightgreen.svg)](#)
+[![Progress](https://img.shields.io/badge/progress-5%20of%2010%20days%20(50%25)-blue.svg)](#)
 
 ---
 
-## 🚀 30-Day Development Roadmap
+## 🚀 10-Day Development Roadmap
 
 - [x] **Day 1**: Project setup, directory scaffolding, and environment config
 - [x] **Day 2**: Project goal, core data models, and schema definitions
 - [x] **Day 3**: Task CRUD operations (Create, Read, Update, Delete) and memory store
 - [x] **Day 4**: Task prioritization (Low, Medium, High) and category tagging system
+- [x] **Day 5**: Due dates, countdown timers, and urgency sorting algorithm
+- [ ] **Day 6**: REST API controller endpoints, HTTP routing, and request validation
+- [ ] **Day 7**: Multi-query filtering engine (search, tags, priority, date range)
+- [ ] **Day 8**: Interactive web frontend UI (task dashboard, card grid, status toggles)
+- [ ] **Day 9**: Local persistence adapter, JSON/CSV export/import, and dark mode
+- [ ] **Day 10**: End-to-end integration test suite, production packaging, and v1.0.0 release
 <!-- gitstreak-roadmap-end -->
 
 ---
@@ -22,7 +29,7 @@
 - **Runtime**: Node.js
 - **Architecture**: Modular Services & Controllers
 - **Testing**: Automated Unit Test Suites (`tests/`)
-- **Automation**: GitStreak AI Daily GitHub Actions
+- **Automation**: GitStreak AI Daily GitHub Actions (4 Commits / Day at 4:00 PM IST)
 
 ---
 
