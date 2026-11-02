@@ -20,6 +20,7 @@
 - [ ] **Day 8**: Interactive web frontend UI (task dashboard, card grid, status toggles)
 - [ ] **Day 9**: Local persistence adapter, JSON/CSV export/import, and dark mode
 - [ ] **Day 10**: End-to-end integration test suite, production packaging, and v1.0.0 release
+- [x] **Day 6**: REST API controller endpoints, HTTP routing, and request validation
 <!-- gitstreak-roadmap-end -->
 
 ---
