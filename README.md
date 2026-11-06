@@ -23,6 +23,7 @@
 - [x] **Day 6**: REST API controller endpoints, HTTP routing, and request validation
 - [x] **Day 7**: Multi-query filtering engine (search, tags, priority, date range)
 - [x] **Day 8**: Interactive web frontend UI (task dashboard, card grid, status toggles)
+- [x] **Day 9**: Local persistence adapter, JSON/CSV export/import, and dark mode
 <!-- gitstreak-roadmap-end -->
 
 ---
