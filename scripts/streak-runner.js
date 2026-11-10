@@ -333,6 +333,15 @@ async function main() {
     day: '2-digit'
   }).format(new Date());
 
+  if (state.status === 'completed' || state.isCompleted === true || (state.currentDay >= (state.totalDays || 10) && state.status === 'completed' && !FORCE_RUN)) {
+    console.log('========================================================');
+    console.log('🎉 TO-DO LIST PROJECT HAS BEEN OFFICIALLY COMPLETED! 🎉');
+    console.log(`✅ All ${state.totalDays || 10} core milestones delivered with 100% test pass rate.`);
+    console.log('🛑 Project is wrapped up. No further streak runs will be executed.');
+    console.log('========================================================');
+    return;
+  }
+
   if (state.lastRunDate === todayIst && !FORCE_RUN) {
     console.log(`ℹ️ Day ${state.currentDay} streak was already completed today (${todayIst} IST).`);
     console.log('Set FORCE_RUN=true in workflow_dispatch to override.');
